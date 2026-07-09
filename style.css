@@ -119,7 +119,7 @@ html, body {
 .hero-container {
 	max-width: var(--container-max);
 	margin: 0 auto;
-	background: #7bb183; /* light green background inside hero */
+	background: #9ad89a; /* lighter green background inside hero */
 	border: 3px solid #1B4332; /* dark forest green */
 	border-radius: 1rem; /* 16px */
 	padding: clamp(3.75rem, 8vw, 5rem); /* 60-80px */
@@ -351,7 +351,21 @@ html, body {
 .card-popup .popup-header { display:flex; gap:0.5rem; align-items:baseline; margin-bottom:0.5rem; }
 .card-popup .popup-header .year { font-size:1.05rem; color: #9fe4c7; }
 .card-popup .popup-header .title { font-size:1.05rem; font-weight:600; }
-.card-popup .popup-body { color: #e6f5ef; line-height:1.5; }
+.card-popup .popup-body { color: #e6f5ef; line-height:1.6; font-size: 1rem; }
+
+@media (max-width: 480px) {
+	.card-popup {
+		padding: 1.1rem;
+	}
+	.card-popup .popup-header .year,
+	.card-popup .popup-header .title {
+		font-size: 1.1rem;
+	}
+	.card-popup .popup-body {
+		font-size: 1.02rem;
+		line-height: 1.7;
+	}
+}
 
 /* Ensure popup text is readable when user prefers reduced motion */
 @media (prefers-reduced-motion: reduce) {
@@ -363,6 +377,29 @@ html, body {
 	color: #6b7280;
 	font-size: 14px;
 	margin-bottom: 48px;
+}
+
+.newsletter-header {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+}
+
+.newsletter-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.6rem;
+	height: 2.6rem;
+	border-radius: 50%;
+	background: #dff4e4;
+	color: #0b3b8a;
+	flex-shrink: 0;
+}
+
+.newsletter-icon svg {
+	width: 1.2rem;
+	height: 1.2rem;
 }
 
 /* Small screens adjustments */

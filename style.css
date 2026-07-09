@@ -1,0 +1,386 @@
+/* Basic reset and typography */
+* {
+	box-sizing: border-box;
+}
+
+:root {
+	--gap: 24px; /* fixed 24px gap between timeline cards */
+	--container-max: 75rem; /* ~1200px max content width */
+	--card-min: 18rem; /* default card minimum width */
+	--card-height: clamp(18rem, 40vh, 24rem); /* default card height */
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+	color: #0b1220;
+	/* Light green page background */
+	background: #eaf6ea;
+	overflow-x: hidden; /* prevent horizontal page scrolling */
+}
+
+/* Container to center content and keep a max width */
+.container {
+	max-width: var(--container-max);
+	margin: 0 auto;
+	padding: 1.5rem; /* responsive padding */
+}
+
+/* Two-column layout: sidebar (title) + content (timeline) */
+.layout {
+	display: grid;
+	grid-template-columns: 1fr; /* stack header on top and content below */
+	gap: 18px;
+	align-items: start;
+}
+
+/* Keep layout single-column and center content; container max-width controls page width */
+@media (min-width: 1200px) {
+	.container { padding: 2rem; }
+	.hero-text h1 { font-size: clamp(1.25rem, 2.2vw, 2rem); }
+}
+
+.sidebar {
+	background: transparent;
+	padding: 12px 8px;
+	text-align: center; /* center the header/title when stacked */
+}
+.sidebar {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.sidebar .logo {
+	margin: 0 0 12px 0;
+}
+.sidebar .logo {
+	width: clamp(88px, 10vw, 200px); /* larger, responsive logo */
+	display: block;
+	margin-bottom: 12px;
+}
+.sidebar .hero-text h1 {
+	font-size: clamp(1.25rem, 4vw, 3rem); /* scale larger across viewports */
+	margin: 0 0 8px 0;
+	color: #0b3b8a; /* dark blue */
+	line-height: 1.05;
+}
+.sidebar .lead {
+	color: #0b3b8a;
+	font-size: clamp(1rem, 1.6vw, 1.25rem);
+}
+
+/* Header / hero */
+.site-header {
+	background: linear-gradient(180deg, #ffffff 0%, #eaf6ea 100%);
+	border-bottom: 1px solid #d8ecd9;
+}
+.header-inner {
+	display: flex;
+	gap: 16px;
+	align-items: center;
+}
+.logo {
+	width: clamp(72px, 9vw, 180px);
+	height: auto;
+}
+.hero-text h1 {
+	margin: 0 0 6px 0;
+	font-size: clamp(1.5rem, 3.2vw, 2.5rem);
+}
+
+/* Timeline header above the cards (logo + title) */
+.timeline-header {
+	display: flex;
+	gap: var(--gap);
+	align-items: center;
+	justify-content: center;
+	margin-bottom: calc(var(--gap) * 0.75);
+	flex-wrap: wrap;
+	text-align: center;
+}
+.timeline-header .logo--inline {
+	width: clamp(96px, 12vw, 260px); /* larger, responsive Intel logo */
+	height: auto;
+}
+.timeline-header .timeline-hero h1 {
+	margin: 0;
+	font-size: clamp(1.75rem, 5vw, 3rem); /* larger, responsive heading */
+	line-height: 1.02;
+}
+.timeline-header .timeline-hero .lead {
+	margin: 0;
+	font-size: clamp(1rem, 1.8vw, 1.25rem);
+	color: #0b3b8a;
+}
+
+/* Hero container around the header */
+.hero-container {
+	max-width: var(--container-max);
+	margin: 0 auto;
+	background: #7bb183; /* light green background inside hero */
+	border: 3px solid #1B4332; /* dark forest green */
+	border-radius: 1rem; /* 16px */
+	padding: clamp(3.75rem, 8vw, 5rem); /* 60-80px */
+	box-shadow: 0 8px 24px rgba(12,24,48,0.06);
+}
+
+@media (min-width: 1200px) {
+	.timeline-header { justify-content: center; text-align: center; }
+	.timeline-header .timeline-hero h1 { font-size: clamp(1.5rem, 2.2vw, 2.25rem); }
+}
+
+/* Ensure the main title is centered */
+.hero-text {
+	text-align: center;
+}
+.hero-text h1 {
+	text-align: center;
+}
+
+.lead {
+	text-align: center;
+}
+.lead {
+	margin: 0;
+	color: #334155;
+}
+
+.timeline {
+	position: relative;
+	margin-top: 20px;
+	margin-bottom: 24px;
+}
+.timeline {
+	position: relative;
+	margin-top: 1.25rem;
+	margin-bottom: 1.5rem;
+}
+
+/* Wrapper hides overflow; track scrolls horizontally */
+.timeline-track-wrapper {
+	overflow: hidden;
+	display: flex;
+	justify-content: center; /* center the track within the content */
+}
+.timeline-track-wrapper {
+	overflow: hidden;
+	display: flex;
+	justify-content: center; /* center the track within the content */
+	max-width: var(--container-max);
+	width: min(var(--container-max), 96vw);
+	margin: 0 auto;
+}
+
+.timeline-track {
+	--gap: var(--gap);
+	display: flex; /* row by default; switch to column on mobile */
+	flex-direction: row;
+	gap: var(--gap);
+	padding: 0.75rem; /* add padding so cards don't touch edges */
+	overflow-x: auto;
+	scroll-behavior: smooth;
+	-webkit-overflow-scrolling: touch;
+	scroll-snap-type: x mandatory;
+	min-width: 0; /* allow flex children to shrink without overflowing */
+	max-width: 100%;
+}
+
+
+.timeline-track::-webkit-scrollbar { display: none; }
+
+.timeline-card {
+	background: white;
+	padding: 1.125rem;
+	border-radius: 1rem; /* 16px rounded corners */
+	box-shadow: 0 0.5rem 1.25rem rgba(12, 24, 48, 0.08);
+	transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease, color 160ms ease, max-height 260ms ease;
+	border: 1px solid rgba(15, 38, 75, 0.04);
+	flex: 0 0 var(--card-min); /* default card width for small screens */
+	scroll-snap-align: center;
+	min-width: calc(var(--card-min));
+	max-height: var(--card-height); /* compact card max height */
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	overflow: hidden; /* hide overflowing card-body until expanded */
+}
+
+/* Responsive: number of visible cards */
+@media (min-width: 1024px) {
+	/* Desktop: 4 cards visible */
+	.timeline-card { flex: 0 0 calc((100% - (var(--gap) * 3)) / 4); }
+}
+/* Breakpoints:
+   - Desktop: 1200px and above => 4 cards visible
+   - Tablet: 768px–1199px => 2 cards visible
+   - Mobile: 767px and below => vertical stacked cards
+*/
+@media (min-width: 1200px) {
+	/* Desktop: 4 cards visible */
+	.timeline-track { padding: 0.75rem 0.25rem; }
+	.timeline-card { flex: 0 0 calc((100% - (var(--gap) * 3)) / 4); max-width: calc((100% - (var(--gap) * 3)) / 4); }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+	/* Tablet: 2 cards visible */
+	.timeline-card { flex: 0 0 calc((100% - var(--gap)) / 2); max-width: calc((100% - var(--gap)) / 2); }
+}
+
+@media (max-width: 767px) {
+	/* Mobile: stack vertically but keep gap using flex column */
+	.timeline-track-wrapper { display: block; }
+	.timeline-track {
+		flex-direction: column;
+		width: 100%;
+		overflow-x: visible;
+		scroll-snap-type: none;
+		padding: 0;
+	}
+	.timeline-card {
+		flex: none;
+		width: 100%;
+		max-width: 100%;
+		scroll-snap-align: none;
+		padding: 1.5rem; /* larger touch targets on mobile */
+		min-height: 8rem; /* ensure tappable area */
+	}
+}
+
+/* Timeline track focus for keyboard users */
+.timeline-track:focus {
+	outline: 2px solid #0b3b8a;
+	outline-offset: 4px;
+}
+
+/* Wrapper positioned normally */
+.timeline-track-wrapper { position: static; }
+.timeline-card:hover {
+	transform: translateY(-6px);
+	box-shadow: 0 18px 38px rgba(12, 24, 48, 0.12);
+	background-color: #064e3b; /* dark green */
+	color: #ffffff;
+}
+
+.timeline-card:hover .card-media {
+	filter: brightness(0.55) saturate(0.9);
+}
+
+.timeline-card:hover .card-header .year,
+.timeline-card:hover .card-header .title,
+.timeline-card:hover .card-body,
+.timeline-card:hover .card-body p {
+	color: #ffffff;
+}
+.timeline-card header {
+	display: flex;
+	align-items: baseline;
+	gap: 12px;
+	margin-bottom: 8px;
+}
+.year {
+	font-size: 18px;
+	color: #0b3b8a;
+	margin: 0;
+}
+.title {
+	font-size: 16px;
+	margin: 0;
+	color: #102a43;
+}
+.timeline-card p {
+	margin: 8px 0 0 0;
+	line-height: 1.45;
+	color: #334155;
+}
+
+/* Media area at top of each card */
+.card-media {
+	width: 100%;
+	height: clamp(8rem, 12vw, 16rem);
+	border-radius: 0.75rem;
+	background-color: #e2f0e2;
+	background-size: cover;
+	background-position: center;
+	margin-bottom: 0.75rem;
+}
+
+.card-media--contain {
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.card-media--stretch {
+	background-size: 100% 100%;
+	background-position: center;
+}
+
+.card-header { padding: 0 4px; }
+
+/* Hide the card body by default; reveal on hover/focus */
+.card-body {
+	display: none; /* descriptions are shown only in the floating popup */
+}
+
+/* Keep header (title/year) visible always */
+.card-header .year,
+.card-header .title { display: inline-block; }
+
+/* Floating popup for full card details (appended to body to avoid clipping) */
+.card-popup {
+	position: absolute;
+	z-index: 2200;
+	background: #064e3b; /* match hover color */
+	color: #ffffff;
+	border-radius: 0.75rem;
+	box-shadow: 0 18px 38px rgba(12, 24, 48, 0.16);
+	padding: 1rem;
+	max-width: min(90vw, 36rem);
+	max-height: calc(100vh - 40px);
+	overflow: auto;
+	opacity: 0;
+	transform: translateY(8px) scale(0.99);
+	transition: opacity 200ms ease, transform 200ms ease;
+	pointer-events: auto;
+}
+.card-popup.show {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+}
+.card-popup .popup-header { display:flex; gap:0.5rem; align-items:baseline; margin-bottom:0.5rem; }
+.card-popup .popup-header .year { font-size:1.05rem; color: #9fe4c7; }
+.card-popup .popup-header .title { font-size:1.05rem; font-weight:600; }
+.card-popup .popup-body { color: #e6f5ef; line-height:1.5; }
+
+/* Ensure popup text is readable when user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.card-popup { transition: none; }
+}
+
+.hint {
+	text-align: center;
+	color: #6b7280;
+	font-size: 14px;
+	margin-bottom: 48px;
+}
+
+/* Small screens adjustments */
+@media (max-width: 480px) {
+	.hero-text h1 { font-size: 20px; }
+	.logo { width: 64px; }
+	.container { padding: 16px; }
+}
+
+/* Stack columns on smaller screens */
+@media (max-width: 880px) {
+	.layout { grid-template-columns: 1fr; }
+	.sidebar { order: -1; }
+	.sidebar .logo { margin: 0 auto 12px auto; }
+}
+
+/* Helpful comment for students:
+	 - `.timeline` creates a responsive grid
+	 - `.timeline-card` styles each box
+	 - Adjust the colors or spacing to match your taste
+*/
